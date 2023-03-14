@@ -1,0 +1,40 @@
+{
+  "name": "product_catalog_be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@mate-academy/eslint-config": "0.0.22",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.36.0",
+    "husky": "^8.0.3",
+    "nodemon": "^2.0.21",
+    "prettier": "2.8.4",
+    "typescript": "^4.9.5"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js",
+    "format": "prettier --write . --ignore-path .gitignore",
+    "lint": "eslint . --ignore-path .gitignore --fix",
+    "fix-style": "npm run format && npm run lint",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oleh-holovnykh/product_catalog_BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oleh-holovnykh/product_catalog_BE/issues"
+  },
+  "homepage": "https://github.com/oleh-holovnykh/product_catalog_BE#readme"
+}
