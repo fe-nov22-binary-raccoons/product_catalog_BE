@@ -30,15 +30,5 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts}": "npm run lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oleh-holovnykh/product_catalog_BE.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/oleh-holovnykh/product_catalog_BE/issues"
-  },
-  "homepage": "https://github.com/oleh-holovnykh/product_catalog_BE#readme"
+  }
 }
