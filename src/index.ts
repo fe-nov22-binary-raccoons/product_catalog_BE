@@ -8,10 +8,7 @@ const port = process.env.PORT;
 const app: Express = express();
 
 app.get('/expenses', (req, res) => {
-  res.send(('<div>HSsdsd</div>'));
+  res.send('<div>HSsdsd</div>');
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log('fddfdsHHHGGHGJddfd');
-});
+app.listen(port);

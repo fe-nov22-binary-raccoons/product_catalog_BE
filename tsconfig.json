@@ -24,11 +24,6 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src",
-    "src/index.ts"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["src", "src/index.ts"]
 }
