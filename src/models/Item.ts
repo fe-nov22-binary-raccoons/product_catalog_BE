@@ -14,11 +14,11 @@ interface Description {
 }
 
 @Table({
-  tableName: 'items',
+  tableName: 'phone_items',
   createdAt: false,
   updatedAt: false,
 })
-export class Item extends Model {
+export class PhoneItem extends Model {
   @PrimaryKey
   @AutoIncrement
   @AllowNull(false)
