@@ -18,3 +18,9 @@ export const getAll = async(req: Req, res: Res) => {
 
   res.send(pageOfPhones);
 };
+
+export const getCount = async(req: Req, res: Res) => {
+  const count = await phoneServices.getCount();
+
+  res.send({ count });
+};
