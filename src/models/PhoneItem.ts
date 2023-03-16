@@ -4,28 +4,26 @@ import {
   Column,
   DataType,
   PrimaryKey,
-  AutoIncrement,
   AllowNull,
 } from 'sequelize-typescript';
 
 interface Description {
   title: string;
-  text: string;
+  text: string[];
 }
 
 @Table({
-  tableName: 'items',
+  tableName: 'phone_items',
   createdAt: false,
   updatedAt: false,
 })
-export class Item extends Model {
+export class PhoneItem extends Model {
   @PrimaryKey
-  @AutoIncrement
   @AllowNull(false)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
   })
-    id: number;
+    id: string;
 
   @AllowNull(false)
   @Column({
@@ -81,7 +79,7 @@ export class Item extends Model {
 
   @AllowNull(false)
   @Column({
-    type: DataType.ARRAY(DataType.JSON),
+    type: DataType.JSONB,
   })
     description: Description[];
 
