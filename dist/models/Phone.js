@@ -33,7 +33,6 @@ import {
   AllowNull,
 } from 'sequelize-typescript';
 let Phone = class Phone extends Model {};
-
 __decorate(
   [
     PrimaryKey,
@@ -182,7 +181,6 @@ __decorate(
   'image',
   void 0,
 );
-
 Phone = __decorate(
   [
     Table({
