@@ -10,7 +10,7 @@ const app = express();
 initDB();
 app.use(cors());
 app.get('', (req, res) => {
-    res.send(returnTemplate());
+  res.send(returnTemplate());
 });
 app.get('/phones', express.json(), phoneControllers.getAll);
 app.listen(port);

@@ -6,13 +6,13 @@ dotenv.config();
 const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 const DBURL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}`;
 export const initDB = () => {
-    return new Sequelize(DBURL, {
-        models: [Phone, Item],
-        dialectOptions: {
-            ssl: {
-                rejectUnauthorized: true,
-            },
-        },
-    });
+  return new Sequelize(DBURL, {
+    models: [Phone, Item],
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: true,
+      },
+    },
+  });
 };
 //# sourceMappingURL=initDB.js.map
