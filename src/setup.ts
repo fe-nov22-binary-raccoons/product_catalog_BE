@@ -1,4 +1,4 @@
-import { PhoneItem } from './models/Item.js';
+import { PhoneItem } from './models/PhoneItem.js';
 import { Phone } from './models/Phone.js';
 import { initDB } from './utils/initDB.js';
 

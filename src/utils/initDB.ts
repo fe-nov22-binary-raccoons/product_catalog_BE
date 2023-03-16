@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize-typescript';
-import { PhoneItem } from '../models/Item.js';
+import { PhoneItem } from '../models/PhoneItem.js';
 import { Phone } from '../models/Phone.js';
 
 dotenv.config();
