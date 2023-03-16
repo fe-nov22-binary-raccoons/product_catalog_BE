@@ -14,6 +14,6 @@ export const getAll = async (req, res) => {
 };
 export const getCount = async (req, res) => {
   const count = await phoneServices.getCount();
-  res.send(count.toString());
+  res.send({ count });
 };
 //# sourceMappingURL=phones.js.map
