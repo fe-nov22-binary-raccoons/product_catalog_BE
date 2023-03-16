@@ -9,8 +9,8 @@ import {
 } from 'sequelize-typescript';
 
 interface Description {
-  title: string,
-  text: string,
+  title: string;
+  text: string;
 }
 
 @Table({
@@ -18,7 +18,6 @@ interface Description {
   createdAt: false,
   updatedAt: false,
 })
-
 export class Item extends Model {
   @PrimaryKey
   @AutoIncrement
