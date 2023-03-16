@@ -4,13 +4,12 @@ import {
   Column,
   DataType,
   PrimaryKey,
-  AutoIncrement,
   AllowNull,
 } from 'sequelize-typescript';
 
 interface Description {
   title: string;
-  text: string;
+  text: string[];
 }
 
 @Table({
@@ -20,12 +19,11 @@ interface Description {
 })
 export class PhoneItem extends Model {
   @PrimaryKey
-  @AutoIncrement
   @AllowNull(false)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
   })
-    id: number;
+    id: string;
 
   @AllowNull(false)
   @Column({
@@ -81,7 +79,7 @@ export class PhoneItem extends Model {
 
   @AllowNull(false)
   @Column({
-    type: DataType.ARRAY(DataType.JSON),
+    type: DataType.JSONB,
   })
     description: Description[];
 
