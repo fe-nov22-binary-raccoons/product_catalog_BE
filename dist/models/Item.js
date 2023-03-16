@@ -32,8 +32,7 @@ import {
   AutoIncrement,
   AllowNull,
 } from 'sequelize-typescript';
-let Phone = class Phone extends Model {};
-
+let Item = class Item extends Model {};
 __decorate(
   [
     PrimaryKey,
@@ -44,7 +43,7 @@ __decorate(
     }),
     __metadata('design:type', Number),
   ],
-  Phone.prototype,
+  Item.prototype,
   'id',
   void 0,
 );
@@ -56,32 +55,7 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
-  'category',
-  void 0,
-);
-__decorate(
-  [
-    AllowNull(false),
-    Column({
-      type: DataType.STRING,
-      field: 'phone_id',
-    }),
-    __metadata('design:type', String),
-  ],
-  Phone.prototype,
-  'phoneId',
-  void 0,
-);
-__decorate(
-  [
-    AllowNull(false),
-    Column({
-      type: DataType.STRING,
-    }),
-    __metadata('design:type', String),
-  ],
-  Phone.prototype,
+  Item.prototype,
   'name',
   void 0,
 );
@@ -89,25 +63,13 @@ __decorate(
   [
     AllowNull(false),
     Column({
-      type: DataType.INTEGER,
-      field: 'full_price',
+      type: DataType.ARRAY(DataType.STRING),
+      field: 'capacity_available',
     }),
-    __metadata('design:type', Number),
+    __metadata('design:type', Array),
   ],
-  Phone.prototype,
-  'fullPrice',
-  void 0,
-);
-__decorate(
-  [
-    AllowNull(false),
-    Column({
-      type: DataType.INTEGER,
-    }),
-    __metadata('design:type', Number),
-  ],
-  Phone.prototype,
-  'price',
+  Item.prototype,
+  'capacityAvailable',
   void 0,
 );
 __decorate(
@@ -118,7 +80,94 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
+  Item.prototype,
+  'capacity',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.INTEGER,
+      field: 'price_regular',
+    }),
+    __metadata('design:type', Number),
+  ],
+  Item.prototype,
+  'priceRegular',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.INTEGER,
+      field: 'price_discount',
+    }),
+    __metadata('design:type', Number),
+  ],
+  Item.prototype,
+  'priceDiscount',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.ARRAY(DataType.STRING),
+      field: 'colors_available',
+    }),
+    __metadata('design:type', Array),
+  ],
+  Item.prototype,
+  'colorsAvailable',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.STRING,
+    }),
+    __metadata('design:type', String),
+  ],
+  Item.prototype,
+  'color',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.ARRAY(DataType.STRING),
+    }),
+    __metadata('design:type', Array),
+  ],
+  Item.prototype,
+  'images',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.ARRAY(DataType.JSON),
+    }),
+    __metadata('design:type', Array),
+  ],
+  Item.prototype,
+  'description',
+  void 0,
+);
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.STRING,
+    }),
+    __metadata('design:type', String),
+  ],
+  Item.prototype,
   'screen',
   void 0,
 );
@@ -130,8 +179,8 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
-  'capacity',
+  Item.prototype,
+  'resolution',
   void 0,
 );
 __decorate(
@@ -142,8 +191,8 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
-  'color',
+  Item.prototype,
+  'processor',
   void 0,
 );
 __decorate(
@@ -154,7 +203,7 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
+  Item.prototype,
   'ram',
   void 0,
 );
@@ -162,12 +211,12 @@ __decorate(
   [
     AllowNull(false),
     Column({
-      type: DataType.INTEGER,
+      type: DataType.STRING,
     }),
-    __metadata('design:type', Number),
+    __metadata('design:type', String),
   ],
-  Phone.prototype,
-  'year',
+  Item.prototype,
+  'camera',
   void 0,
 );
 __decorate(
@@ -178,20 +227,31 @@ __decorate(
     }),
     __metadata('design:type', String),
   ],
-  Phone.prototype,
-  'image',
+  Item.prototype,
+  'zoom',
   void 0,
 );
-
-Phone = __decorate(
+__decorate(
+  [
+    AllowNull(false),
+    Column({
+      type: DataType.ARRAY(DataType.STRING),
+    }),
+    __metadata('design:type', Array),
+  ],
+  Item.prototype,
+  'cell',
+  void 0,
+);
+Item = __decorate(
   [
     Table({
-      tableName: 'phones',
+      tableName: 'items',
       createdAt: false,
       updatedAt: false,
     }),
   ],
-  Phone,
+  Item,
 );
-export { Phone };
-//# sourceMappingURL=Phone.js.map
+export { Item };
+//# sourceMappingURL=Item.js.map

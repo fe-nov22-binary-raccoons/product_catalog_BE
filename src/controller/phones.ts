@@ -2,25 +2,25 @@ import { Request as Req, Response as Res } from 'express';
 import * as phoneServices from '../services/phones.js';
 
 export const getAll = async(req: Req, res: Res) => {
-  let { page, size } = req.query;
+  const { page, size } = req.query;
+  let pageNumber = Number(page);
+  let sizeNumber = Number(size);
 
-  if (!page && !size) {
-    const phones = await phoneServices.getAll();
+  if (!pageNumber) {
+    pageNumber = 1;
+  }
 
-    res.send(phones);
+  if (!sizeNumber) {
+    sizeNumber = 16;
+  }
+
+  const pageOfPhones = await phoneServices.getPage(pageNumber, sizeNumber);
+
+  if (typeof pageOfPhones === 'number') {
+    res.sendStatus(pageOfPhones);
 
     return;
   }
-
-  if (!page) {
-    page = '1';
-  }
-
-  if (!size) {
-    size = '12';
-  }
-
-  const pageOfPhones = await phoneServices.getPage(+page, +size);
 
   res.send(pageOfPhones);
 };
