@@ -1,19 +1,11 @@
-import path from 'path';
-import { readFile } from 'fs/promises';
-
-export const getAll = async() => {
-  const data = await readFile(path.resolve('src', 'phones.json'));
-  const phones = JSON.parse(data.toString());
-
-  return phones;
-};
+import { Phone } from '../models/Phone.js';
 
 export const getPage = async(page, size) => {
-  const data = await readFile(path.resolve('src', 'phones.json'));
-  const phones = JSON.parse(data.toString());
-  const start = (page - 1) * size;
-  const end = page * size;
+  const offset = (page - 1) * size;
 
-  return phones.slice(start, end);
+  return Phone.findAll({
+    offset,
+    limit: size,
+  });
 };
 // # sourceMappingURL=phones.js.map
