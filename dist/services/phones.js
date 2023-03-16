@@ -6,4 +6,7 @@ export const getPage = async (page, size) => {
     limit: size,
   });
 };
+export const getCount = async () => {
+  return Phone.count();
+};
 //# sourceMappingURL=phones.js.map

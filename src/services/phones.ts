@@ -10,3 +10,7 @@ export const getPage = async(page: number, size: number) => {
     limit: size,
   });
 };
+
+export const getCount = async() => {
+  return Phone.count();
+};
