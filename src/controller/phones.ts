@@ -16,11 +16,11 @@ export const getAll = async(req: Req, res: Res) => {
 
   const pageOfPhones = await phoneServices.getPage(pageNumber, sizeNumber);
 
+  if (typeof pageOfPhones === 'number') {
+    res.sendStatus(pageOfPhones);
+
+    return;
+  }
+
   res.send(pageOfPhones);
-};
-
-export const getCount = async(req: Req, res: Res) => {
-  const count = await phoneServices.getCount();
-
-  res.send({ count });
 };

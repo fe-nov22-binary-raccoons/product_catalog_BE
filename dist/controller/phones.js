@@ -10,10 +10,10 @@ export const getAll = async (req, res) => {
     sizeNumber = 16;
   }
   const pageOfPhones = await phoneServices.getPage(pageNumber, sizeNumber);
+  if (typeof pageOfPhones === 'number') {
+    res.sendStatus(pageOfPhones);
+    return;
+  }
   res.send(pageOfPhones);
-};
-export const getCount = async (req, res) => {
-  const count = await phoneServices.getCount();
-  res.send({ count });
 };
 //# sourceMappingURL=phones.js.map

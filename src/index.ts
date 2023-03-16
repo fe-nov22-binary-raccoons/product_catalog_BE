@@ -22,6 +22,4 @@ app.get('', (req, res) => {
 
 app.get('/phones', express.json(), phoneControllers.getAll);
 
-app.get('/phonesCount', phoneControllers.getCount);
-
 app.listen(port);
