@@ -13,6 +13,5 @@ app.get('', (req, res) => {
   res.send(returnTemplate());
 });
 app.get('/phones', express.json(), phoneControllers.getAll);
-app.get('/phonesCount', phoneControllers.getCount);
 app.listen(port);
 //# sourceMappingURL=index.js.map
