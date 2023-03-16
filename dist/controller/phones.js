@@ -1,6 +1,6 @@
 import * as phoneServices from '../services/phones.js';
 
-export const getAll = async(req, res) => {
+export const getAll = async (req, res) => {
   const { page, size } = req.query;
   let pageNumber = Number(page);
   let sizeNumber = Number(size);

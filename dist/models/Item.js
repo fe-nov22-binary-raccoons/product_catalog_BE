@@ -8,16 +8,16 @@ import {
   AllowNull,
 } from 'sequelize-typescript';
 
-const __decorate
-  = (this && this.__decorate)
-  || function(decorators, target, key, desc) {
+const __decorate =
+  (this && this.__decorate) ||
+  function (decorators, target, key, desc) {
     const c = arguments.length;
-    let r
-      = c < 3
+    let r =
+      c < 3
         ? target
         : desc === null
-          ? (desc = Object.getOwnPropertyDescriptor(target, key))
-          : desc;
+        ? (desc = Object.getOwnPropertyDescriptor(target, key))
+        : desc;
     let d;
 
     if (typeof Reflect === 'object' && typeof Reflect.decorate === 'function') {
@@ -32,9 +32,9 @@ const __decorate
 
     return c > 3 && r && Object.defineProperty(target, key, r), r;
   };
-const __metadata
-  = (this && this.__metadata)
-  || function(k, v) {
+const __metadata =
+  (this && this.__metadata) ||
+  function (k, v) {
     if (typeof Reflect === 'object' && typeof Reflect.metadata === 'function') {
       return Reflect.metadata(k, v);
     }
