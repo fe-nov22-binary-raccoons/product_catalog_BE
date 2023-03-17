@@ -10,14 +10,10 @@ const app = express();
 initDB();
 app.use(cors());
 app.get('', (req, res) => {
-  res.send(returnTemplate());
+    res.send(returnTemplate());
 });
 app.get('/phones', express.json(), phoneControllers.getAll);
 app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
-app.get(
-  '/phones/:phoneId/recommended',
-  express.json(),
-  phoneControllers.getRecommendedPhones,
-);
+app.get('/phones/:phoneId/recommended', express.json(), phoneControllers.getRecommendedPhones);
 app.listen(port);
 //# sourceMappingURL=index.js.map

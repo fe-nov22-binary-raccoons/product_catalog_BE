@@ -2,9 +2,10 @@ import { Request as Req, Response as Res } from 'express';
 import * as phoneServices from '../services/phones.js';
 
 export const getAll = async(req: Req, res: Res) => {
-  const { page, size } = req.query;
+  const { page, size, sort } = req.query;
   let pageNumber = Number(page);
   let sizeNumber = Number(size);
+  const sortBy = sort || 'year';
 
   if (!pageNumber) {
     pageNumber = 1;
@@ -14,7 +15,11 @@ export const getAll = async(req: Req, res: Res) => {
     sizeNumber = 16;
   }
 
-  const pageOfPhones = await phoneServices.getPage(pageNumber, sizeNumber);
+  const pageOfPhones = await phoneServices.getPage(
+    pageNumber,
+    sizeNumber,
+    sortBy,
+  );
 
   if (typeof pageOfPhones === 'number') {
     res.sendStatus(pageOfPhones);

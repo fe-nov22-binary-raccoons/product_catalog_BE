@@ -1,11 +1,25 @@
 import { Phone } from '../models/Phone.js';
 import { PhoneItem } from '../models/PhoneItem.js';
 
-export const getPage = async(page: number, size: number) => {
+export const getPage = async(page: number, size: number, sort: string) => {
   const offset = (page - 1) * size;
+
+  let sortField = 'year';
+  let sortOrder = 'DESC';
+
+  if (sort === 'title') {
+    sortField = 'name';
+    sortOrder = 'ASC';
+  }
+
+  if (sort === 'price') {
+    sortField = 'price';
+    sortOrder = 'ASC';
+  }
 
   try {
     const phones = await Phone.findAll({
+      order: [[sortField, sortOrder]],
       offset,
       limit: size,
     });
