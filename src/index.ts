@@ -24,4 +24,10 @@ app.get('/phones', express.json(), phoneControllers.getAll);
 
 app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
 
+app.get(
+  '/phones/:phoneId/recommended',
+  express.json(),
+  phoneControllers.getRecommendedPhones,
+);
+
 app.listen(port);

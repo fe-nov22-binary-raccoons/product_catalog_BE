@@ -16,6 +16,15 @@ export const getAll = async (req, res) => {
   }
   res.send(pageOfPhones);
 };
+export const getRecommendedPhones = async (req, res) => {
+  const { phoneId } = req.params;
+  const pageOfPhones = await phoneServices.getRecommendedPhones(phoneId);
+  if (typeof pageOfPhones === 'number') {
+    res.sendStatus(pageOfPhones);
+    return;
+  }
+  res.send(pageOfPhones);
+};
 export const getPhoneById = async (req, res) => {
   const { phoneId } = req.params;
   const phone = await phoneServices.getPhoneById(phoneId);
