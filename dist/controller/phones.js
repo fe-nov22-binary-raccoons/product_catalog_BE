@@ -1,5 +1,4 @@
 import * as phoneServices from '../services/phones.js';
-
 export const getAll = async (req, res) => {
   const { page, size } = req.query;
   let pageNumber = Number(page);
@@ -16,5 +15,14 @@ export const getAll = async (req, res) => {
     return;
   }
   res.send(pageOfPhones);
+};
+export const getPhoneById = async (req, res) => {
+  const { phoneId } = req.params;
+  const phone = await phoneServices.getPhoneById(phoneId);
+  if (typeof phone === 'number') {
+    res.sendStatus(phone);
+    return;
+  }
+  res.send(phone);
 };
 //# sourceMappingURL=phones.js.map

@@ -7,13 +7,12 @@ import * as phoneControllers from './controller/phones.js';
 dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
-
 initDB();
 app.use(cors());
 app.get('', (req, res) => {
   res.send(returnTemplate());
 });
-
 app.get('/phones', express.json(), phoneControllers.getAll);
+app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
 app.listen(port);
 //# sourceMappingURL=index.js.map

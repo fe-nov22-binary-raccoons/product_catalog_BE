@@ -24,3 +24,17 @@ export const getAll = async(req: Req, res: Res) => {
 
   res.send(pageOfPhones);
 };
+
+export const getPhoneById = async(req: Req, res: Res) => {
+  const { phoneId } = req.params;
+
+  const phone = await phoneServices.getPhoneById(phoneId);
+
+  if (typeof phone === 'number') {
+    res.sendStatus(phone);
+
+    return;
+  }
+
+  res.send(phone);
+};
