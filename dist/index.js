@@ -13,6 +13,8 @@ app.get('', (req, res) => {
     res.send(returnTemplate());
 });
 app.get('/phones', express.json(), phoneControllers.getAll);
+app.get('/phones/new', express.json(), phoneControllers.getNewPhones);
+app.get('/phones/discount', express.json(), phoneControllers.getPhonesWithDiscount);
 app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
 app.get('/phones/:phoneId/recommended', express.json(), phoneControllers.getRecommendedPhones);
 app.listen(port);

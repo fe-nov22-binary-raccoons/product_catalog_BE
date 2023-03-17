@@ -22,6 +22,14 @@ app.get('', (req, res) => {
 
 app.get('/phones', express.json(), phoneControllers.getAll);
 
+app.get('/phones/new', express.json(), phoneControllers.getNewPhones);
+
+app.get(
+  '/phones/discount',
+  express.json(),
+  phoneControllers.getPhonesWithDiscount,
+);
+
 app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
 
 app.get(

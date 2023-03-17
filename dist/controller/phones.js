@@ -35,4 +35,12 @@ export const getPhoneById = async (req, res) => {
     }
     res.send(phone);
 };
+export const getNewPhones = async (req, res) => {
+    const phones = await phoneServices.getPage(1, 12, 'year');
+    res.send(phones);
+};
+export const getPhonesWithDiscount = async (req, res) => {
+    const phones = await phoneServices.getPhonesWithDiscount();
+    res.send(phones);
+};
 //# sourceMappingURL=phones.js.map

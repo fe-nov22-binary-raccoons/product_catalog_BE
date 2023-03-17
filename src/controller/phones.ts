@@ -57,3 +57,15 @@ export const getPhoneById = async(req: Req, res: Res) => {
 
   res.send(phone);
 };
+
+export const getNewPhones = async(req: Req, res: Res) => {
+  const phones = await phoneServices.getPage(1, 12, 'year');
+
+  res.send(phones);
+};
+
+export const getPhonesWithDiscount = async(req: Req, res: Res) => {
+  const phones = await phoneServices.getPhonesWithDiscount();
+
+  res.send(phones);
+};

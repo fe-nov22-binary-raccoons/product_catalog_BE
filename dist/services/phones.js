@@ -61,4 +61,14 @@ export const getPhoneById = async (phoneId) => {
         return 500;
     }
 };
+export const getPhonesWithDiscount = async () => {
+    try {
+        const phones = await Phone.findAll();
+        phones.sort((phone1, phone2) => ((phone2.fullPrice - phone2.price) - (phone1.fullPrice - phone1.price)));
+        return { phones: phones.slice(0, 12) };
+    }
+    catch (_a) {
+        return 500;
+    }
+};
 //# sourceMappingURL=phones.js.map
