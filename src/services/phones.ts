@@ -23,9 +23,37 @@ export const getPage = async(page: number, size: number) => {
   }
 };
 
+export const getRecommendedPhones = async(phoneId: string) => {
+  try {
+    const phones = await Phone.findAll({
+      order: [['name', 'ASC']],
+    });
+
+    let id = phones.findIndex((phone) => phone.phoneId === phoneId);
+
+    if (id === -1) {
+      return 404;
+    }
+
+    if (id > phones.length - 9) {
+      id = phones.length - 9;
+    }
+
+    const relatedPhones = phones.slice(id + 1, id + 9);
+
+    return { phones: relatedPhones };
+  } catch {
+    return 500;
+  }
+};
+
 export const getPhoneById = async(phoneId: string) => {
   try {
     const phone = await PhoneItem.findByPk(phoneId);
+
+    if (!phone) {
+      return 404;
+    }
 
     return phone;
   } catch {

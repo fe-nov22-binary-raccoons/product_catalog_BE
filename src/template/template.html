@@ -1,9 +1,27 @@
-<p>
-  You can get phones by /phones or /phones?page=*&size=* endpoint
-  <br />
+<div>
+  <h3>
+    You can get phones by <i>/phones</i> or
+    <i>/phones?page=*&size=*</i> endpoint
+  </h3>
   If page or size are not mentioned, they will be set by default
   <br />
   Page by default = 1
   <br />
   Size by default = 16
-</p>
+  <br />
+  Will return object with params:
+  <ul>
+    <li>phones</li>
+    <li>total</li>
+    <li>page</li>
+    <li>size</li>
+  </ul>
+
+  <h3>Get phone by <i>/phones/:phoneId</i> endpoint</h3>
+  <p>Will return phone object</p>
+
+  <h3>
+    Get recommended phones by <i>/phones/:phoneId/recommended</i> endpoint
+  </h3>
+  <p>Will return object with array of 8 recommended phones</p>
+</div>
