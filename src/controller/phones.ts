@@ -5,7 +5,7 @@ export const getAll = async(req: Req, res: Res) => {
   const { page, size, sort } = req.query;
   let pageNumber = Number(page);
   let sizeNumber = Number(size);
-  const sortBy = sort || 'year';
+  const sortBy = String(sort) || 'year';
 
   if (!pageNumber) {
     pageNumber = 1;
