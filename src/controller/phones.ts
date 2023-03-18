@@ -17,7 +17,7 @@ export const getAll = async(req: Req, res: Res) => {
   const pageOfPhones = await phoneServices.getPage(pageNumber, sizeNumber);
 
   if (typeof pageOfPhones === 'number') {
-    res.sendStatus(pageOfPhones);
+    res.sendStatus(500);
 
     return;
   }
