@@ -4,7 +4,7 @@ import cors from 'cors';
 import { initDB } from './utils/initDB.js';
 import { returnTemplate } from './template/template.js';
 
-import * as phoneControllers from './controller/phones.js';
+import * as productsControllers from './controller/products.js';
 
 dotenv.config();
 
@@ -20,22 +20,28 @@ app.get('', (req, res) => {
   res.send(returnTemplate());
 });
 
-app.get('/phones', express.json(), phoneControllers.getAll);
+app.get('/products', express.json(), productsControllers.getAll);
 
-app.get('/phones/new', express.json(), phoneControllers.getNewPhones);
+app.get('/products/categories', productsControllers.getCategories);
+
+app.get('/products/new', express.json(), productsControllers.getNewProducts);
 
 app.get(
-  '/phones/discount',
+  '/products/discount',
   express.json(),
-  phoneControllers.getPhonesWithDiscount,
+  productsControllers.getProductsWithDiscount,
 );
 
-app.get('/phones/:phoneId', express.json(), phoneControllers.getPhoneById);
+app.get(
+  '/products/:productId',
+  express.json(),
+  productsControllers.getProductById,
+);
 
 app.get(
-  '/phones/:phoneId/recommended',
+  '/products/:productId/recommended',
   express.json(),
-  phoneControllers.getRecommendedPhones,
+  productsControllers.getRecommendedProducts,
 );
 
 app.listen(port);

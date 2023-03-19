@@ -1,35 +1,42 @@
 <div>
   <h3>
-    You can get phones by <i>/phones</i> or
-    <i>/phones?page=*&size=*&sort=*</i> endpoint
+    You can get products by <i>/products</i> or
+    <i>/products?page=*&size=*&sortBy=*&productType=*</i> endpoint
   </h3>
-  If page, size or sort are not mentioned, they will be set by default
+  If page, size, sortBy or productType are not mentioned, they will be set by
+  default
   <br />
-  Sort values: title, age, price
+  sortBy values: title, age, price
   <br />
-  Page by default = 1
+  page by default = 1
   <br />
-  Size by default = 16
+  size by default = 16
   <br />
-  Sort by default = age
+  sortBy by default = age
+  <br />
+  productType by default = products
   <br />
   Will return object with params:
   <ul>
-    <li>phones</li>
+    <li>products</li>
     <li>total</li>
     <li>page</li>
     <li>size</li>
+    <li>sort</li>
+    <li>category</li>
   </ul>
 
-  <h3>Get phone by <i>/phones/:phoneId</i> endpoint</h3>
-  <p>Will return phone object</p>
+  <h3>Get product by <i>/products/:productId</i> endpoint</h3>
+  <p>Will return product object</p>
 
   <h3>
-    Get recommended phones by <i>/phones/:phoneId/recommended</i> endpoint
+    Get recommended products by <i>/products/:productId/recommended</i> endpoint
   </h3>
-  <p>Will return object with array of 8 recommended phones</p>
-  <h3>Get best price phones by <i>/phones/discount</i> endpoint</h3>
-  <p>Will return object with array of 12 phones with the biggest sales</p>
-  <h3>Get new phones by <i>/phones/new</i> endpoint</h3>
-  <p>Will return object with array of 12 newest phones</p>
+  <p>Will return object with array of 8 recommended products</p>
+  <h3>Get best price products by <i>/products/discount</i> endpoint</h3>
+  <p>Will return object with array of 12 products with the biggest sales</p>
+  <h3>Get new products by <i>/products/new</i> endpoint</h3>
+  <p>Will return object with array of 12 newest products</p>
+  <h3>Get new products by <i>/products/category</i> endpoint</h3>
+  <p>Will return all categories</p>
 </div>

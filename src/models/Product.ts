@@ -9,11 +9,11 @@ import {
 } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'phones',
+  tableName: 'products',
   createdAt: false,
   updatedAt: false,
 })
-export class Phone extends Model {
+export class Product extends Model {
   @PrimaryKey
   @AutoIncrement
   @AllowNull(false)
