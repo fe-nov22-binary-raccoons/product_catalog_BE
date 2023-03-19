@@ -1,4 +1,4 @@
-import { Phone } from '../models/Phone.js';
+import { Product } from '../models/Product.js';
 import { PhoneItem } from '../models/PhoneItem.js';
 import { setSortType } from '../utils/setSortType.js';
 
@@ -12,7 +12,7 @@ export const getPage = async(
   const sortBy = setSortType(sortType);
 
   try {
-    const { count, rows } = await Phone.findAndCountAll({
+    const { count, rows } = await Product.findAndCountAll({
       where: {
         category: productType,
       },
@@ -46,7 +46,7 @@ export const getProductById = async(productId: string) => {
 
 export const getRecommendedProducts = async(productId: string) => {
   try {
-    const products = await Phone.findAll({
+    const products = await Product.findAll({
       order: [['name', 'ASC']],
     });
 
@@ -70,7 +70,7 @@ export const getRecommendedProducts = async(productId: string) => {
 
 export const getNewProducts = async() => {
   try {
-    const products = await Phone.findAll({
+    const products = await Product.findAll({
       order: [['year', 'DESC']],
       offset: 1,
       limit: 12,
@@ -84,7 +84,7 @@ export const getNewProducts = async() => {
 
 export const getProductsWithDiscount = async() => {
   try {
-    const products = await Phone.findAll();
+    const products = await Product.findAll();
 
     products.sort(
       (product1, product2) =>
@@ -99,17 +99,59 @@ export const getProductsWithDiscount = async() => {
   }
 };
 
-// export const getCategories = async() => {
-//   try {
-//     const categoriesObjects = await Phone.findAll({
-//       attributes: ['category'],
-//       group: ['category'],
-//     });
+export const getCategories = async() => {
+  // try {
+  //   const categoriesObjects = await Product.findAll({
+  //     attributes: ['category'],
+  //     group: ['category'],
+  //   });
 
-//     const categories = categoriesObjects.map(obj => obj.category)
+  //   const categories = categoriesObjects.map(obj => obj.category)
 
-//     return { categories };
-//   } catch {
-//     return 500;
-//   }
-// };
+  //   return { categories };
+  // } catch {
+  //   return 500;
+  // }
+
+  try {
+    const products = await Product.findAll();
+
+    const phonesCount = products.filter(
+      (product) => product.category === 'phones',
+    ).length;
+    const tabletsCount = products.filter(
+      (product) => product.category === 'tablets',
+    ).length;
+    const accesoiresCount = products.filter(
+      (product) => product.category === 'accesoires',
+    ).length;
+
+    return {
+      categories: [
+        {
+          id: 1,
+          name: 'Mobile phones',
+          itemsCount: phonesCount,
+          img: 'https://i.ibb.co/9tRcHMV/category-phones.png',
+          path: 'phones',
+        },
+        {
+          id: 2,
+          name: 'Tablets',
+          itemsCount: tabletsCount,
+          img: 'https://i.ibb.co/ZfxmNQ4/category-tablets.png',
+          path: 'tablets',
+        },
+        {
+          id: 3,
+          name: 'Accessories',
+          itemsCount: accesoiresCount,
+          img: 'https://i.ibb.co/cCqB3t2/category-accessories.png',
+          path: 'accessories',
+        },
+      ],
+    };
+  } catch {
+    return 500;
+  }
+};

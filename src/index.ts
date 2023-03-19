@@ -22,7 +22,7 @@ app.get('', (req, res) => {
 
 app.get('/products', express.json(), productsControllers.getAll);
 
-// app.get('/products/categories', productsControllers.getCategories);
+app.get('/products/categories', productsControllers.getCategories);
 
 app.get('/products/new', express.json(), productsControllers.getNewProducts);
 

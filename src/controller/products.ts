@@ -76,14 +76,14 @@ export const getProductsWithDiscount = async(req: Req, res: Res) => {
   res.send(products);
 };
 
-// export const getCategories = async(req: Req, res: Res) => {
-//   const categories = await productsServices.getCategories();
+export const getCategories = async(req: Req, res: Res) => {
+  const categories = await productsServices.getCategories();
 
-//   if (typeof categories === 'number') {
-//     res.sendStatus(categories);
+  if (typeof categories === 'number') {
+    res.sendStatus(categories);
 
-//     return;
-//   }
+    return;
+  }
 
-//   res.send(categories);
-// };
+  res.send(categories);
+};
