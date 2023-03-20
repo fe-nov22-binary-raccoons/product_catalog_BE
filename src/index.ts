@@ -4,7 +4,8 @@ import cors from 'cors';
 import { initDB } from './utils/initDB.js';
 import { returnTemplate } from './template/template.js';
 
-import * as productsControllers from './controller/products.js';
+import { router as productsRouter } from './routes/products.js';
+import { router as authRouter } from './routes/authentication.js';
 
 dotenv.config();
 
@@ -16,32 +17,12 @@ initDB();
 
 app.use(cors());
 
-app.get('', (req, res) => {
+app.get('/', (req, res) => {
   res.send(returnTemplate());
 });
 
-app.get('/products', express.json(), productsControllers.getAll);
+app.use('/', express.json(), authRouter);
 
-app.get('/products/categories', productsControllers.getCategories);
-
-app.get('/products/new', express.json(), productsControllers.getNewProducts);
-
-app.get(
-  '/products/discount',
-  express.json(),
-  productsControllers.getProductsWithDiscount,
-);
-
-app.get(
-  '/products/:productId',
-  express.json(),
-  productsControllers.getProductById,
-);
-
-app.get(
-  '/products/:productId/recommended',
-  express.json(),
-  productsControllers.getRecommendedProducts,
-);
+app.use('/products', express.json(), productsRouter);
 
 app.listen(port);
