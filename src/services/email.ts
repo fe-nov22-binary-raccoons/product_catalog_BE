@@ -1,17 +1,23 @@
 import 'dotenv/config';
 import nodemailer from 'nodemailer';
+import { Email } from '../types/Email';
+
+const HOST = process.env.SMTP_HOST || '';
+const USER = process.env.SMTP_USER || '';
+const PORT = Number(process.env.SMTP_PORT) || 0;
+const PASSWORD = process.env.SMTP_PASSWORD || '';
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
+  host: HOST,
+  port: PORT,
   secure: false,
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
+    user: USER,
+    pass: PASSWORD,
   },
 });
 
-export const send = async({ email, subject, html }) => {
+export const send = async({ email, subject, html }: Email) => {
   try {
     const mail = await transporter.sendMail({
       from: 'Nice gadgets team',
@@ -22,5 +28,7 @@ export const send = async({ email, subject, html }) => {
     });
 
     return mail;
-  } catch {}
+  } catch {
+    return 'Error';
+  }
 };
