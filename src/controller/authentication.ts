@@ -1,10 +1,39 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Request as Req, Response as Res } from 'express';
 import * as authServices from '../services/authentication.js';
+import * as emailServices from '../services/email.js';
+import * as userServices from '../services/users.js';
 
 export const register = async(req: Req, res: Res) => {
   const { email, password } = req.body;
 
-  const user = await authServices.add(email, password);
+  const activationToken = uuidv4();
+  const user = await authServices.add(email, password, activationToken);
 
-  res.send(user);
+  if (typeof user === 'number') {
+    res.sendStatus(user);
+
+    return;
+  }
+
+  await emailServices.sendActivationLink(email, activationToken);
+
+  res.send(userServices.normalize(user));
+};
+
+export const activate = async(req: Req, res: Res) => {
+  const { activationToken } = req.params;
+
+  const user = await authServices.getOne(activationToken);
+
+  if (!user) {
+    res.sendStatus(404);
+
+    return;
+  }
+
+  user.activationToken = '';
+  await user.save();
+
+  res.send(userServices.normalize(user));
 };
