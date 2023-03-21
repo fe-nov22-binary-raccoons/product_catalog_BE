@@ -134,6 +134,7 @@ export const getCategories = async() => {
           itemsCount: phonesCount,
           img: 'https://i.ibb.co/9tRcHMV/category-phones.png',
           path: 'phones',
+          backgroundColor: '#6D6474',
         },
         {
           id: 2,
@@ -141,6 +142,7 @@ export const getCategories = async() => {
           itemsCount: tabletsCount,
           img: 'https://i.ibb.co/ZfxmNQ4/category-tablets.png',
           path: 'tablets',
+          backgroundColor: '#8D8D92',
         },
         {
           id: 3,
@@ -148,6 +150,7 @@ export const getCategories = async() => {
           itemsCount: accesoiresCount,
           img: 'https://i.ibb.co/cCqB3t2/category-accessories.png',
           path: 'accessories',
+          backgroundColor: '#D53C51',
         },
       ],
     };
