@@ -4,3 +4,8 @@ export interface User {
   password: string;
   activationToken: string;
 }
+
+export interface NormalizedUser {
+  id: number;
+  email: string;
+}

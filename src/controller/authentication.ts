@@ -3,6 +3,7 @@ import { Request as Req, Response as Res } from 'express';
 import * as authServices from '../services/authentication.js';
 import * as emailServices from '../services/email.js';
 import * as userServices from '../services/users.js';
+import * as jwtServices from '../services/jwt.js';
 
 export const register = async(req: Req, res: Res) => {
   const { email, password } = req.body;
@@ -36,4 +37,30 @@ export const activate = async(req: Req, res: Res) => {
   await user.save();
 
   res.send(userServices.normalize(user));
+};
+
+export const login = async(req: Req, res: Res) => {
+  const { email, password } = req.body;
+
+  const user = await userServices.getByEmail(email);
+
+  if (!user) {
+    res.sendStatus(404);
+
+    return;
+  }
+
+  if (password !== user.password) {
+    res.sendStatus(401);
+
+    return;
+  }
+
+  const userData = userServices.normalize(user);
+  const accessToken = await jwtServices.generateAccessToken(userData);
+
+  res.send({
+    userData,
+    accessToken,
+  });
 };
