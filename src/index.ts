@@ -15,10 +15,12 @@ const app: Express = express();
 
 initDB();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost3000/',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || 'http://localhost3000',
+    credentials: true,
+  }),
+);
 
 app.get('/', (req, res) => {
   res.send(returnTemplate());
