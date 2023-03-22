@@ -18,6 +18,11 @@ router.get(
 router.get('/:productId', catchError(productsControllers.getProductById));
 
 router.get(
+  '/favourites/:productId',
+  catchError(productsControllers.getProductByNumberId),
+);
+
+router.get(
   '/:productId/recommended',
   catchError(productsControllers.getRecommendedProducts),
 );
