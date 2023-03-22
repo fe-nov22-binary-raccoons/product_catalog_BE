@@ -33,8 +33,6 @@ export const register = async(email: string, password: string) => {
       throw ApiError.BadRequest('User with this email already exist', {
         email: 'User with this email already exist',
       });
-
-      return;
     }
 
     const activationToken = uuidv4();
