@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import nodemailer from 'nodemailer';
-import { Email } from '../types/Email';
+import { Email } from '../types/Email.js';
 
 const HOST = process.env.SMTP_HOST || '';
 const USER = process.env.SMTP_USER || '';
@@ -29,6 +29,23 @@ export const send = async({ email, subject, html }: Email) => {
 
     return mail;
   } catch {
-    return 'Error';
+    return 'error';
   }
+};
+
+export const sendActivationLink = async(email: string, token: string) => {
+  const clientUrl = process.env.CLIENT_URL;
+
+  const link = `${clientUrl}/activation/${token}`;
+
+  return send({
+    email,
+    subject: '',
+    html: `
+      <h1>Account activation</h1>
+      <a href="${link}">${link}</a>
+    `,
+  });
+
+  return 'Error';
 };

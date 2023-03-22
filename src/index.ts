@@ -1,8 +1,11 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 import { initDB } from './utils/initDB.js';
 import { returnTemplate } from './template/template.js';
+import { errorMidlevare } from './middlewares/errorMidlevare.js';
 
 import { router as productsRouter } from './routes/products.js';
 import { router as authRouter } from './routes/authentication.js';
@@ -17,10 +20,12 @@ initDB();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost3000',
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
 );
+
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send(returnTemplate());
@@ -29,5 +34,7 @@ app.get('/', (req, res) => {
 app.use('/', express.json(), authRouter);
 
 app.use('/products', express.json(), productsRouter);
+
+app.use(errorMidlevare);
 
 app.listen(port);
