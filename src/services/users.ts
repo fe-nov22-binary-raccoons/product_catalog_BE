@@ -47,7 +47,7 @@ export const register = async(email: string, password: string) => {
     await emailServices.sendActivationLink(email, activationToken);
 
     return user;
-  } catch {
+  } catch (error) {
     throw ApiError.Unexpected();
   }
 };
