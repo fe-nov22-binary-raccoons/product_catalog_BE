@@ -1,36 +1,25 @@
-import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 import { Request as Req, Response as Res } from 'express';
-import * as authServices from '../services/authentication.js';
-import * as emailServices from '../services/email.js';
+import { ApiError } from '../exceptions/ApiError.js';
+import { User } from '../types/User.js';
 import * as userServices from '../services/users.js';
 import * as jwtServices from '../services/jwt.js';
 
 export const register = async(req: Req, res: Res) => {
   const { email, password } = req.body;
 
-  const activationToken = uuidv4();
-  const user = await authServices.add(email, password, activationToken);
+  await userServices.register(email, password);
 
-  if (typeof user === 'number') {
-    res.sendStatus(user);
-
-    return;
-  }
-
-  await emailServices.sendActivationLink(email, activationToken);
-
-  res.send(userServices.normalize(user));
+  res.sendStatus(201);
 };
 
 export const activate = async(req: Req, res: Res) => {
   const { activationToken } = req.params;
 
-  const user = await authServices.getOne(activationToken);
+  const user = await userServices.getOne(activationToken);
 
   if (!user) {
-    res.sendStatus(404);
-
-    return;
+    throw ApiError.NotFound();
   }
 
   user.activationToken = '';
@@ -45,22 +34,56 @@ export const login = async(req: Req, res: Res) => {
   const user = await userServices.getByEmail(email);
 
   if (!user) {
-    res.sendStatus(404);
-
-    return;
+    throw ApiError.BadRequest('User with this email does not exist', {
+      email: 'User with this email does not exist',
+    });
   }
 
-  if (password !== user.password) {
-    res.sendStatus(401);
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-    return;
+  if (!isPasswordCorrect) {
+    throw ApiError.BadRequest('Wrong password', {
+      email: 'Wrong password',
+    });
   }
 
+  sendAuthentication(res, user);
+};
+
+export const refresh = async(req: Req, res: Res) => {
+  const { refreshToken } = req.cookies;
+
+  const userData = jwtServices.validateRefreshToken(refreshToken);
+
+  if (!userData) {
+    throw ApiError.Unauthorized();
+  }
+
+  const user = await userServices.getByEmail(userData.email);
+
+  if (!user) {
+    throw ApiError.Unauthorized();
+  }
+
+  sendAuthentication(res, user);
+};
+
+export const sendAuthentication = async(res: Res, user: User) => {
   const userData = userServices.normalize(user);
   const accessToken = await jwtServices.generateAccessToken(userData);
+  const refreshToken = await jwtServices.generateRefreshToken(userData);
+
+  res.cookie('refreshToken', refreshToken, {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
+  res.cookie('accessToken', accessToken, {
+    maxAge: 10 * 60 * 1000,
+    httpOnly: true,
+  });
 
   res.send({
     userData,
-    accessToken,
   });
 };

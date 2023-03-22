@@ -42,4 +42,16 @@ export class User extends Model {
     field: 'activation_token',
   })
     activationToken: string;
+
+  // @AllowNull(true)
+  // @Column({
+  //   type: DataType.STRING,
+  //   field: 'refresh_token',
+  // })
+  //   refreshToken: string;
+
+  // @Column({
+  //   type: DataType.ARRAY(DataType.INTEGER),
+  // })
+  //   cart: number[],
 }
