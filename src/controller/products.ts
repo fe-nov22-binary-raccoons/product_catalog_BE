@@ -27,23 +27,21 @@ export const getAll = async(req: Req, res: Res) => {
 export const getProductById = async(req: Req, res: Res) => {
   const { productId } = req.params;
 
-  if (!isNaN(+productId)) {
-    const productForFavourites = await productsServices.getProductByNumberId(
-      productId,
-    );
+  const product = await productsServices.getProductById(productId);
 
-    if (typeof productForFavourites === 'number') {
-      res.sendStatus(productForFavourites);
-
-      return;
-    }
-
-    res.send(productForFavourites);
+  if (typeof product === 'number') {
+    res.sendStatus(product);
 
     return;
   }
 
-  const product = await productsServices.getProductById(productId);
+  res.send(product);
+};
+
+export const getProductByNumberId = async(req: Req, res: Res) => {
+  const { productId } = req.params;
+
+  const product = await productsServices.getProductByNumberId(+productId);
 
   if (typeof product === 'number') {
     res.sendStatus(product);

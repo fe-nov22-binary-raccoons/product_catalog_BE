@@ -44,7 +44,7 @@ export const getProductById = async(productId: string) => {
   }
 };
 
-export const getProductByNumberId = async(id: string) => {
+export const getProductByNumberId = async(id: number) => {
   try {
     const product = await Product.findOne({
       where: { id },
