@@ -4,6 +4,7 @@ import { ApiError } from '../exceptions/ApiError.js';
 import { User } from '../types/User.js';
 import * as userServices from '../services/users.js';
 import * as jwtServices from '../services/jwt.js';
+import * as tokenServices from '../services/token.js';
 
 export const register = async(req: Req, res: Res) => {
   const { email, password } = req.body;
@@ -24,6 +25,8 @@ export const activate = async(req: Req, res: Res) => {
 
   user.activationToken = '';
   await user.save();
+
+  await sendAuthentication(res, user);
 
   res.send(userServices.normalize(user));
 };
@@ -47,7 +50,7 @@ export const login = async(req: Req, res: Res) => {
     });
   }
 
-  sendAuthentication(res, user);
+  await sendAuthentication(res, user);
 };
 
 export const refresh = async(req: Req, res: Res) => {
@@ -59,13 +62,19 @@ export const refresh = async(req: Req, res: Res) => {
     throw ApiError.Unauthorized();
   }
 
+  const token = tokenServices.getByToken(refreshToken);
+
+  if (!token) {
+    throw ApiError.Unauthorized();
+  }
+
   const user = await userServices.getByEmail(userData.email);
 
   if (!user) {
     throw ApiError.Unauthorized();
   }
 
-  sendAuthentication(res, user);
+  await sendAuthentication(res, user);
 };
 
 export const sendAuthentication = async(res: Res, user: User) => {
@@ -73,14 +82,20 @@ export const sendAuthentication = async(res: Res, user: User) => {
   const accessToken = await jwtServices.generateAccessToken(userData);
   const refreshToken = await jwtServices.generateRefreshToken(userData);
 
+  await tokenServices.save(user.id, refreshToken);
+
   res.cookie('refreshToken', refreshToken, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    sameSite: 'none',
+    secure: true,
   });
 
   res.cookie('accessToken', accessToken, {
     maxAge: 10 * 60 * 1000,
     httpOnly: true,
+    sameSite: 'none',
+    secure: true,
   });
 
   res.send({

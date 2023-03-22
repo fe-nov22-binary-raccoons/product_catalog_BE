@@ -44,6 +44,18 @@ export const getProductById = async(productId: string) => {
   }
 };
 
+export const getProductByNumberId = async(id: string) => {
+  try {
+    const product = await Product.findOne({
+      where: { id },
+    });
+
+    return product || 404;
+  } catch {
+    return 500;
+  }
+};
+
 export const getRecommendedProducts = async(productId: string) => {
   try {
     const products = await Product.findAll({
