@@ -51,3 +51,7 @@ export const register = async(email: string, password: string) => {
     throw ApiError.Unexpected();
   }
 };
+
+// export const updateCart = async(newCart: number[]) => {
+
+// };

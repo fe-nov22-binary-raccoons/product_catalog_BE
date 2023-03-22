@@ -102,3 +102,9 @@ export const sendAuthentication = async(res: Res, user: User) => {
     userData,
   });
 };
+
+// export const updateCart = async(req: Req, res: Res) => {
+//   const { newCart } = req.body;
+
+//   const products = userServices.updateCart(newCart);
+// };
