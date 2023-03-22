@@ -87,15 +87,15 @@ export const sendAuthentication = async(res: Res, user: User) => {
   res.cookie('refreshToken', refreshToken, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    // sameSite: 'none',
-    // secure: true,
+    sameSite: 'none',
+    secure: true,
   });
 
   res.cookie('accessToken', accessToken, {
     maxAge: 10 * 60 * 1000,
     httpOnly: true,
-    // sameSite: 'none',
-    // secure: true,
+    sameSite: 'none',
+    secure: true,
   });
 
   res.send({
