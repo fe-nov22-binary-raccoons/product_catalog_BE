@@ -11,7 +11,7 @@ export const register = async(req: Req, res: Res) => {
 
   await userServices.register(email, password);
 
-  res.sendStatus(201);
+  res.status(201).send({ status: 'created' });
 };
 
 export const activate = async(req: Req, res: Res) => {
