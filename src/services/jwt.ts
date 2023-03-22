@@ -4,7 +4,7 @@ import { NormalizedUser, User } from '../types/User.js';
 
 export const generateAccessToken = (user: NormalizedUser) => {
   return jwt.sign(user, process.env.JWT_ACCESS_SECRET || '', {
-    expiresIn: '30s',
+    expiresIn: '10m',
   });
 };
 

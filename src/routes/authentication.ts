@@ -19,3 +19,5 @@ router.get(
 router.post('/login', validateAuth(), catchError(authControllers.login));
 
 router.get('/refresh', catchError(authControllers.refresh));
+
+// router.patch('/cart', catchError(authControllers.updateCart));
