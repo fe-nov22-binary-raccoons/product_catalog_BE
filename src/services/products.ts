@@ -126,34 +126,32 @@ export const getCategories = async() => {
       (product) => product.category === 'accesoires',
     ).length;
 
-    return {
-      categories: [
-        {
-          id: 1,
-          name: 'Mobile phones',
-          itemsCount: phonesCount,
-          img: 'https://i.ibb.co/9tRcHMV/category-phones.png',
-          path: 'phones',
-          backgroundColor: '#6D6474',
-        },
-        {
-          id: 2,
-          name: 'Tablets',
-          itemsCount: tabletsCount,
-          img: 'https://i.ibb.co/ZfxmNQ4/category-tablets.png',
-          path: 'tablets',
-          backgroundColor: '#8D8D92',
-        },
-        {
-          id: 3,
-          name: 'Accessories',
-          itemsCount: accesoiresCount,
-          img: 'https://i.ibb.co/cCqB3t2/category-accessories.png',
-          path: 'accessories',
-          backgroundColor: '#D53C51',
-        },
-      ],
-    };
+    return [
+      {
+        id: 1,
+        name: 'Mobile phones',
+        itemsCount: phonesCount,
+        img: 'https://i.ibb.co/9tRcHMV/category-phones.png',
+        path: 'phones',
+        backgroundColor: '#6D6474',
+      },
+      {
+        id: 2,
+        name: 'Tablets',
+        itemsCount: tabletsCount,
+        img: 'https://i.ibb.co/ZfxmNQ4/category-tablets.png',
+        path: 'tablets',
+        backgroundColor: '#8D8D92',
+      },
+      {
+        id: 3,
+        name: 'Accessories',
+        itemsCount: accesoiresCount,
+        img: 'https://i.ibb.co/cCqB3t2/category-accessories.png',
+        path: 'accessories',
+        backgroundColor: '#D53C51',
+      },
+    ];
   } catch {
     return 500;
   }

@@ -2,7 +2,7 @@ import type { ErrorRequestHandler } from 'express';
 import { ApiError } from '../exceptions/ApiError.js';
 import { ValidationError } from 'express-validation';
 
-export const errorMidlevare: ErrorRequestHandler = (error, req, res) => {
+export const errorMidlevare: ErrorRequestHandler = (error, req, res, next) => {
   if (error instanceof ApiError) {
     const { status, message, errors } = error;
 

@@ -6,7 +6,9 @@ export const router = express.Router();
 
 router.get('/', catchError(productsControllers.getAll));
 
-router.get('/categories', catchError(productsControllers.getCategories));
+router.get(
+  '/categories', catchError(productsControllers.getCategories),
+);
 
 router.get('/new', catchError(productsControllers.getNewProducts));
 
