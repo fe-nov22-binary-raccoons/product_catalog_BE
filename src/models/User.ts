@@ -50,8 +50,9 @@ export class User extends Model {
   })
     refreshToken: string;
 
+  @AllowNull(true)
   @Column({
-    type: DataType.ARRAY(DataType.INTEGER),
+    type: DataType.STRING,
   })
-    cart: number[];
+    cart: string;
 }

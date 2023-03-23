@@ -6,7 +6,7 @@ export const errorMidlevare: ErrorRequestHandler = (error, req, res, next) => {
   if (error instanceof ApiError) {
     const { status, message, errors } = error;
 
-    res.status(status).send({ message, errors });
+    res.status(status).send({ status, message, errors });
   }
 
   if (error instanceof ValidationError) {

@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-import { User as UserType } from '../types/User.js';
+import { CartItem, User as UserType } from '../types/User.js';
 import { User } from '../models/User.js';
-import { ApiError } from '../exceptions/ApiError.js';
+// import { ApiError } from '../exceptions/ApiError.js';
 import * as emailServices from '../services/email.js';
 
 export const getOne = async(activationToken: string) => {
@@ -30,15 +30,13 @@ export const register = async(email: string, password: string) => {
     const existingUser = await getByEmail(email);
 
     if (existingUser) {
-      throw ApiError.BadRequest('User with this email already exist', {
-        email: 'User with this email already exist',
-      });
+      return 400;
     }
 
     const activationToken = uuidv4();
     const hash = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
       email,
       password: hash,
       activationToken,
@@ -46,12 +44,23 @@ export const register = async(email: string, password: string) => {
 
     await emailServices.sendActivationLink(email, activationToken);
 
-    return user;
+    return 201;
   } catch (error) {
-    throw ApiError.Unexpected();
+    return 500;
   }
 };
 
-// export const updateCart = async(newCart: number[]) => {
+export const updateCart = async(cart: CartItem[], email: string) => {
+  try {
+    await User.update(
+      { cart: JSON.stringify(cart) },
+      {
+        where: { email },
+      },
+    );
 
-// };
+    return 201;
+  } catch {
+    return 500;
+  }
+};
