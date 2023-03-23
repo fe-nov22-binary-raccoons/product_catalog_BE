@@ -36,7 +36,7 @@ export const send = async({ email, subject, html }: Email) => {
 export const sendActivationLink = async(email: string, token: string) => {
   const clientUrl = process.env.CLIENT_URL;
 
-  const link = `${clientUrl}/activation/${token}`;
+  const link = `${clientUrl}/catalog_product_FE/#/activation/${token}`;
 
   return send({
     email,

@@ -9,9 +9,18 @@ import * as tokenServices from '../services/token.js';
 export const register = async(req: Req, res: Res) => {
   const { email, password } = req.body;
 
-  await userServices.register(email, password);
+  const status = await userServices.register(email, password);
 
-  res.status(201).send({ status: 'created' });
+  if (status === 400) {
+    res.status(400).send({
+      status: 400,
+      message: 'User with this email already exist',
+    });
+
+    return;
+  }
+
+  res.status(status).send({ status });
 };
 
 export const activate = async(req: Req, res: Res) => {
@@ -20,7 +29,12 @@ export const activate = async(req: Req, res: Res) => {
   const user = await userServices.getOne(activationToken);
 
   if (!user) {
-    throw ApiError.NotFound();
+    res.status(400).send({
+      status: 400,
+      message: 'User does not exist',
+    });
+
+    return;
   }
 
   user.activationToken = '';
@@ -28,7 +42,9 @@ export const activate = async(req: Req, res: Res) => {
 
   await sendAuthentication(res, user);
 
-  res.send(userServices.normalize(user));
+  res.status(200).send({
+    status: 200,
+  });
 };
 
 export const login = async(req: Req, res: Res) => {
@@ -37,17 +53,23 @@ export const login = async(req: Req, res: Res) => {
   const user = await userServices.getByEmail(email);
 
   if (!user) {
-    throw ApiError.BadRequest('User with this email does not exist', {
-      email: 'User with this email does not exist',
+    res.status(400).send({
+      status: 400,
+      message: 'User with this email does not exist',
     });
+
+    return;
   }
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
   if (!isPasswordCorrect) {
-    throw ApiError.BadRequest('Wrong password', {
-      email: 'Wrong password',
+    res.status(400).send({
+      status: 400,
+      message: 'Wrong password',
     });
+
+    return;
   }
 
   await sendAuthentication(res, user);
@@ -98,13 +120,22 @@ export const sendAuthentication = async(res: Res, user: User) => {
     secure: true,
   });
 
-  res.send({
-    userData,
-  });
+  res.status(200).send({ status: 200 });
 };
 
-// export const updateCart = async(req: Req, res: Res) => {
-//   const { newCart } = req.body;
+export const updateCart = async(req: Req, res: Res) => {
+  const { cart } = req.body;
+  const { accessToken } = req.cookies;
 
-//   const products = userServices.updateCart(newCart);
-// };
+  const user = jwtServices.validateAccessToken(accessToken);
+
+  if (!user) {
+    throw ApiError.Unauthorized;
+  }
+
+  const email = user.email;
+
+  const status = await userServices.updateCart(cart, email);
+
+  res.status(status).send({ status: status });
+};

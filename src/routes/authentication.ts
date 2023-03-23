@@ -1,5 +1,6 @@
 import express from 'express';
 import * as authControllers from '../controller/authentication.js';
+import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { catchError } from '../utils/catchError.js';
 import { validateAuth } from '../utils/validation.js';
 
@@ -20,4 +21,4 @@ router.post('/login', validateAuth(), catchError(authControllers.login));
 
 router.get('/refresh', catchError(authControllers.refresh));
 
-// router.patch('/cart', catchError(authControllers.updateCart));
+router.patch('/cart', authMiddleware, catchError(authControllers.updateCart));
