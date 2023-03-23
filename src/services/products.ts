@@ -44,10 +44,10 @@ export const getProductById = async(productId: string) => {
   }
 };
 
-export const getProductByNumberId = async(id: number) => {
+export const getProductFromProductsById = async(phoneId: string) => {
   try {
     const product = await Product.findOne({
-      where: { id },
+      where: { phoneId },
     });
 
     return product || 404;
