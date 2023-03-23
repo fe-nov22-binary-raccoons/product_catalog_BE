@@ -1,5 +1,5 @@
 export interface CartItem {
-  id: number;
+  id: string;
   count: number;
 }
 export interface User {

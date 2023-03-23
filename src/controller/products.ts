@@ -41,7 +41,7 @@ export const getProductById = async(req: Req, res: Res) => {
 export const getProductByNumberId = async(req: Req, res: Res) => {
   const { productId } = req.params;
 
-  const product = await productsServices.getProductByNumberId(+productId);
+  const product = await productsServices.getProductFromProductsById(productId);
 
   if (typeof product === 'number') {
     res.sendStatus(product);
