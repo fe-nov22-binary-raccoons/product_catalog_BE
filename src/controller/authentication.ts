@@ -41,10 +41,6 @@ export const activate = async(req: Req, res: Res) => {
   await user.save();
 
   await sendAuthentication(res, user);
-
-  res.status(200).send({
-    status: 200,
-  });
 };
 
 export const login = async(req: Req, res: Res) => {
@@ -106,36 +102,40 @@ export const sendAuthentication = async(res: Res, user: User) => {
 
   await tokenServices.save(user.id, refreshToken);
 
-  res.cookie('refreshToken', refreshToken, {
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    // sameSite: 'none',
-    // secure: true,
-  });
+  // res.cookie('refreshToken', refreshToken, {
+  //   maxAge: 30 * 24 * 60 * 60 * 1000,
+  //   httpOnly: true,
+  //   // sameSite: 'none',
+  //   // secure: true,
+  // });
 
-  res.cookie('accessToken', accessToken, {
-    maxAge: 10 * 60 * 1000,
-    httpOnly: true,
-    // sameSite: 'none',
-    // secure: true,
+  res.status(200).send({
+    status: 200,
+    accessToken: accessToken,
   });
-
-  res.status(200).send({ status: 200 });
 };
 
 export const updateCart = async(req: Req, res: Res) => {
   const { cart } = req.body;
-  const { accessToken } = req.cookies;
+  const authHeader = req.headers['authorization'];
 
-  const user = jwtServices.validateAccessToken(accessToken);
-
-  if (!user) {
-    throw ApiError.Unauthorized;
+  if (!authHeader) {
+    throw ApiError.Unauthorized();
   }
 
-  const email = user.email;
+  const [, accessToken] = authHeader.split(' ');
 
-  const status = await userServices.updateCart(cart, email);
+  if (!accessToken) {
+    throw ApiError.Unauthorized();
+  }
+
+  const userData = jwtServices.validateAccessToken(accessToken);
+
+  if (!userData) {
+    throw ApiError.Unauthorized();
+  }
+
+  const status = await userServices.updateCart(cart, userData.email);
 
   res.status(status).send({ status: status });
 };
