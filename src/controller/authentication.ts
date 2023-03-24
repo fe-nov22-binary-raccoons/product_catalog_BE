@@ -117,13 +117,7 @@ export const sendAuthentication = async(res: Res, user: User) => {
 
 export const updateCart = async(req: Req, res: Res) => {
   const { cart } = req.body;
-  const authHeader = req.headers['authorization'];
-
-  if (!authHeader) {
-    throw ApiError.Unauthorized();
-  }
-
-  const [, accessToken] = authHeader.split(' ');
+  const { accessToken } = req.body;
 
   if (!accessToken) {
     throw ApiError.Unauthorized();

@@ -3,13 +3,7 @@ import * as jwtServices from '../services/jwt.js';
 import { ApiError } from '../exceptions/ApiError.js';
 
 export const authMiddleware = (req: Req, res: Res, next: NextFunction) => {
-  const authHeader = req.headers['authorization'];
-
-  if (!authHeader) {
-    throw ApiError.Unauthorized();
-  }
-
-  const [, accessToken] = authHeader.split(' ');
+  const { accessToken } = req.body;
 
   if (!accessToken) {
     throw ApiError.Unauthorized();
