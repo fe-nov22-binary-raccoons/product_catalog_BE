@@ -3,15 +3,11 @@ import jwt from 'jsonwebtoken';
 import { NormalizedUser, User } from '../types/User.js';
 
 export const generateAccessToken = (user: NormalizedUser) => {
-  return jwt.sign(user, process.env.JWT_ACCESS_SECRET || '', {
-    expiresIn: '10m',
-  });
+  return jwt.sign(user, process.env.JWT_ACCESS_SECRET || '');
 };
 
 export const generateRefreshToken = (user: NormalizedUser) => {
-  return jwt.sign(user, process.env.JWT_REFRESH_SECRET || '', {
-    expiresIn: '30d',
-  });
+  return jwt.sign(user, process.env.JWT_REFRESH_SECRET || '');
 };
 
 export const validateAccessToken = (token: string) => {
