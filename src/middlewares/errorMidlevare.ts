@@ -14,6 +14,6 @@ export const errorMidlevare: ErrorRequestHandler = (error, req, res, next) => {
   }
 
   return res.status(500).send({
-    message: 'Unexpected error',
+    message: 'Unexpected error'
   });
 };

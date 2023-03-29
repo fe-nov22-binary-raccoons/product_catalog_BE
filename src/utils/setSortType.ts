@@ -1,4 +1,4 @@
-import { Sort, Order, SortType } from '../types/Sort.js';
+import { type Sort, type Order, type SortType } from '../types/Sort.js';
 
 export const setSortType = (sortBy: string): SortType => {
   let sortField: Sort = 'year';

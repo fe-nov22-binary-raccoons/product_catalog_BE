@@ -5,88 +5,88 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
-  AllowNull,
+  AllowNull
 } from 'sequelize-typescript';
 
 @Table({
   tableName: 'products',
   createdAt: false,
-  updatedAt: false,
+  updatedAt: false
 })
 export class Product extends Model {
   @PrimaryKey
   @AutoIncrement
   @AllowNull(false)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER
   })
     id: number;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     category: string;
 
   @AllowNull(false)
   @Column({
     type: DataType.STRING,
-    field: 'phone_id',
+    field: 'phone_id'
   })
     phoneId: string;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     name: string;
 
   @AllowNull(false)
   @Column({
     type: DataType.INTEGER,
-    field: 'full_price',
+    field: 'full_price'
   })
     fullPrice: number;
 
   @AllowNull(false)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER
   })
     price: number;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     screen: string;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     capacity: string;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     color: string;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     ram: string;
 
   @AllowNull(false)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.INTEGER
   })
     year: number;
 
   @AllowNull(false)
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING
   })
     image: string;
 }

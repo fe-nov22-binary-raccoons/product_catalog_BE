@@ -1,7 +1,7 @@
-import { Request as Req, Response as Res } from 'express';
+import { type Request as Req, type Response as Res } from 'express';
 import * as productsServices from '../services/products.js';
 
-export const getAll = async(req: Req, res: Res) => {
+export const getAll = async(req: Req, res: Res): Promise<void> => {
   const { page, size, sortBy, productType } = req.query;
   const pageNumber = Number(page) || 1;
   const sizeNumber = Number(size) || 16;
@@ -12,7 +12,7 @@ export const getAll = async(req: Req, res: Res) => {
     pageNumber,
     sizeNumber,
     sort,
-    product,
+    product
   );
 
   if (typeof pageOfPhones === 'number') {
@@ -24,7 +24,7 @@ export const getAll = async(req: Req, res: Res) => {
   res.send(pageOfPhones);
 };
 
-export const getProductById = async(req: Req, res: Res) => {
+export const getProductById = async(req: Req, res: Res): Promise<void> => {
   const { productId } = req.params;
 
   const product = await productsServices.getProductById(productId);
@@ -38,7 +38,10 @@ export const getProductById = async(req: Req, res: Res) => {
   res.send(product);
 };
 
-export const getProductByNumberId = async(req: Req, res: Res) => {
+export const getProductByNumberId = async(
+  req: Req,
+  res: Res
+): Promise<void> => {
   const { productId } = req.params;
 
   const product = await productsServices.getProductFromProductsById(productId);
@@ -52,7 +55,10 @@ export const getProductByNumberId = async(req: Req, res: Res) => {
   res.send(product);
 };
 
-export const getRecommendedProducts = async(req: Req, res: Res) => {
+export const getRecommendedProducts = async(
+  req: Req,
+  res: Res
+): Promise<void> => {
   const { productId } = req.params;
 
   const pageOfPhones = await productsServices.getRecommendedProducts(productId);
@@ -66,7 +72,7 @@ export const getRecommendedProducts = async(req: Req, res: Res) => {
   res.send(pageOfPhones);
 };
 
-export const getNewProducts = async(req: Req, res: Res) => {
+export const getNewProducts = async(req: Req, res: Res): Promise<void> => {
   const products = await productsServices.getNewProducts();
 
   if (typeof products === 'number') {
@@ -78,7 +84,10 @@ export const getNewProducts = async(req: Req, res: Res) => {
   res.send(products);
 };
 
-export const getProductsWithDiscount = async(req: Req, res: Res) => {
+export const getProductsWithDiscount = async(
+  req: Req,
+  res: Res
+): Promise<void> => {
   const products = await productsServices.getProductsWithDiscount();
 
   if (typeof products === 'number') {
@@ -90,7 +99,7 @@ export const getProductsWithDiscount = async(req: Req, res: Res) => {
   res.send(products);
 };
 
-export const getCategories = async(req: Req, res: Res) => {
+export const getCategories = async(req: Req, res: Res): Promise<void> => {
   const categories = await productsServices.getCategories();
 
   if (typeof categories === 'number') {

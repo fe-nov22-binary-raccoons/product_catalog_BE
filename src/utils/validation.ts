@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { validate, Joi } from 'express-validation';
 
 const loginValidation = {
@@ -5,8 +6,8 @@ const loginValidation = {
     email: Joi.string().email().required(),
     password: Joi.string()
       .regex(/[a-zA-Z0-9]{3,30}/)
-      .required(),
-  }),
+      .required()
+  })
 };
 
 export const validateAuth = () => {
