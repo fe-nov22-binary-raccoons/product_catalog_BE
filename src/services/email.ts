@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import nodemailer from 'nodemailer';
-import { Email } from '../types/Email.js';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport/index.js';
+import { type Email } from '../types/Email.js';
 
 const HOST = process.env.SMTP_HOST || '';
 const USER = process.env.SMTP_USER || '';
@@ -13,18 +14,20 @@ const transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: USER,
-    pass: PASSWORD,
-  },
+    pass: PASSWORD
+  }
 });
 
-export const send = async({ email, subject, html }: Email) => {
+export const send = async({
+  email, subject, html
+}: Email): Promise<SMTPTransport.SentMessageInfo | string> => {
   try {
     const mail = await transporter.sendMail({
       from: 'Nice gadgets team',
       to: email,
       subject,
       text: '',
-      html,
+      html
     });
 
     return mail;
@@ -33,10 +36,15 @@ export const send = async({ email, subject, html }: Email) => {
   }
 };
 
-export const sendActivationLink = async(email: string, token: string) => {
+export const sendActivationLink = async(
+  email: string, token: string
+): Promise<string | SMTPTransport.SentMessageInfo> => {
   const clientUrl = process.env.CLIENT_URL;
+  let link = '';
 
-  const link = `${clientUrl}/catalog_product_FE/#/activation/${token}`;
+  if (clientUrl) {
+    link = `${clientUrl}/catalog_product_FE/#/activation/${token}`;
+  }
 
   return send({
     email,
@@ -44,8 +52,6 @@ export const sendActivationLink = async(email: string, token: string) => {
     html: `
       <h1>Account activation</h1>
       <a href="${link}">${link}</a>
-    `,
+    `
   });
-
-  return 'Error';
 };

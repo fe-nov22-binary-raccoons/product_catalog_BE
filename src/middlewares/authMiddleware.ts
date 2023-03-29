@@ -1,8 +1,14 @@
-import { Request as Req, Response as Res, NextFunction } from 'express';
+import {
+  type Request as Req,
+  type Response as Res,
+  type NextFunction
+} from 'express';
 import * as jwtServices from '../services/jwt.js';
 import { ApiError } from '../exceptions/ApiError.js';
 
-export const authMiddleware = (req: Req, res: Res, next: NextFunction) => {
+export const authMiddleware = (
+  req: Req, res: Res, next: NextFunction
+): void => {
   const { accessToken } = req.body;
 
   if (!accessToken) {

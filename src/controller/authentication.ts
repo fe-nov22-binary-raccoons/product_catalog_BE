@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
-import { Request as Req, Response as Res } from 'express';
+import { type Request as Req, type Response as Res } from 'express';
 import { ApiError } from '../exceptions/ApiError.js';
-import { User } from '../types/User.js';
+import { type User } from '../types/User.js';
 import * as userServices from '../services/users.js';
 import * as jwtServices from '../services/jwt.js';
 import * as tokenServices from '../services/token.js';
 
-export const register = async(req: Req, res: Res) => {
+export const register = async(req: Req, res: Res): Promise<void> => {
   const { email, password } = req.body;
 
   const status = await userServices.register(email, password);
@@ -14,7 +14,7 @@ export const register = async(req: Req, res: Res) => {
   if (status === 400) {
     res.status(400).send({
       status: 400,
-      message: 'User with this email already exist',
+      message: 'User with this email already exist'
     });
 
     return;
@@ -23,7 +23,7 @@ export const register = async(req: Req, res: Res) => {
   res.status(status).send({ status });
 };
 
-export const activate = async(req: Req, res: Res) => {
+export const activate = async(req: Req, res: Res): Promise<void> => {
   const { activationToken } = req.params;
 
   const user = await userServices.getOne(activationToken);
@@ -31,7 +31,7 @@ export const activate = async(req: Req, res: Res) => {
   if (!user) {
     res.status(400).send({
       status: 400,
-      message: 'User does not exist',
+      message: 'User does not exist'
     });
 
     return;
@@ -43,7 +43,7 @@ export const activate = async(req: Req, res: Res) => {
   await sendAuthentication(res, user);
 };
 
-export const login = async(req: Req, res: Res) => {
+export const login = async(req: Req, res: Res): Promise<void> => {
   const { email, password } = req.body;
 
   const user = await userServices.getByEmail(email);
@@ -51,7 +51,7 @@ export const login = async(req: Req, res: Res) => {
   if (!user) {
     res.status(400).send({
       status: 400,
-      message: 'User with this email does not exist',
+      message: 'User with this email does not exist'
     });
 
     return;
@@ -62,7 +62,7 @@ export const login = async(req: Req, res: Res) => {
   if (!isPasswordCorrect) {
     res.status(400).send({
       status: 400,
-      message: 'Wrong password',
+      message: 'Wrong password'
     });
 
     return;
@@ -71,7 +71,7 @@ export const login = async(req: Req, res: Res) => {
   await sendAuthentication(res, user);
 };
 
-export const refresh = async(req: Req, res: Res) => {
+export const refresh = async(req: Req, res: Res): Promise<void> => {
   const { refreshToken } = req.cookies;
 
   const userData = jwtServices.validateRefreshToken(refreshToken);
@@ -95,27 +95,22 @@ export const refresh = async(req: Req, res: Res) => {
   await sendAuthentication(res, user);
 };
 
-export const sendAuthentication = async(res: Res, user: User) => {
+export const sendAuthentication = async(
+  res: Res, user: User
+): Promise<void> => {
   const userData = userServices.normalize(user);
-  const accessToken = await jwtServices.generateAccessToken(userData);
-  const refreshToken = await jwtServices.generateRefreshToken(userData);
+  const accessToken = jwtServices.generateAccessToken(userData);
+  const refreshToken = jwtServices.generateRefreshToken(userData);
 
   await tokenServices.save(user.id, refreshToken);
 
-  // res.cookie('refreshToken', refreshToken, {
-  //   maxAge: 30 * 24 * 60 * 60 * 1000,
-  //   httpOnly: true,
-  //   // sameSite: 'none',
-  //   // secure: true,
-  // });
-
   res.status(200).send({
     status: 200,
-    accessToken: accessToken,
+    accessToken
   });
 };
 
-export const updateCart = async(req: Req, res: Res) => {
+export const updateCart = async(req: Req, res: Res): Promise<void> => {
   const { cart } = req.body;
   const { accessToken } = req.body;
 
@@ -131,5 +126,5 @@ export const updateCart = async(req: Req, res: Res) => {
 
   const status = await userServices.updateCart(cart, userData.email);
 
-  res.status(status).send({ status: status });
+  res.status(status).send({ status });
 };

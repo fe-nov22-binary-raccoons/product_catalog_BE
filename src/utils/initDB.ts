@@ -7,15 +7,16 @@ import { User } from '../models/User.js';
 dotenv.config();
 
 const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 const DBURL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}`;
 
-export const initDB = () => {
+export const initDB = (): Sequelize => {
   return new Sequelize(DBURL, {
     models: [Product, PhoneItem, User],
     dialectOptions: {
       ssl: {
-        rejectUnauthorized: true,
-      },
-    },
+        rejectUnauthorized: true
+      }
+    }
   });
 };

@@ -1,14 +1,13 @@
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-import { CartItem, User as UserType } from '../types/User.js';
+import { type CartItem, type User as UserType } from '../types/User.js';
 import { User } from '../models/User.js';
-// import { ApiError } from '../exceptions/ApiError.js';
 import * as emailServices from '../services/email.js';
 
-export const getOne = async(activationToken: string) => {
+export const getOne = async(activationToken: string): Promise<User | null> => {
   try {
     const user = await User.findOne({
-      where: { activationToken },
+      where: { activationToken }
     });
 
     return user;
@@ -17,15 +16,20 @@ export const getOne = async(activationToken: string) => {
   }
 };
 
-export const normalize = ({ id, email }: UserType) => ({ id, email });
+export const normalize = ({ id, email }: UserType): {
+  id: number
+  email: string
+} => ({ id, email });
 
-export const getByEmail = (email: string) => {
+export const getByEmail = (email: string): Promise<User | null> => {
   return User.findOne({
-    where: { email },
+    where: { email }
   });
 };
 
-export const register = async(email: string, password: string) => {
+export const register = async(
+  email: string, password: string
+): Promise<400 | 201 | 500> => {
   try {
     const existingUser = await getByEmail(email);
 
@@ -39,7 +43,7 @@ export const register = async(email: string, password: string) => {
     await User.create({
       email,
       password: hash,
-      activationToken,
+      activationToken
     });
 
     await emailServices.sendActivationLink(email, activationToken);
@@ -50,13 +54,15 @@ export const register = async(email: string, password: string) => {
   }
 };
 
-export const updateCart = async(cart: CartItem[], email: string) => {
+export const updateCart = async(
+  cart: CartItem[], email: string
+): Promise<201 | 500> => {
   try {
     await User.update(
       { cart: JSON.stringify(cart) },
       {
-        where: { email },
-      },
+        where: { email }
+      }
     );
 
     return 201;

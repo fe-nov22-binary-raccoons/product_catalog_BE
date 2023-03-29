@@ -1,9 +1,11 @@
 import { ApiError } from '../exceptions/ApiError.js';
 import { User } from '../models/User.js';
 
-export const save = async(id: number, token: string) => {
+export const save = async(
+  id: number, token: string
+): Promise<string | ApiError> => {
   const user = await User.findOne({
-    where: { id },
+    where: { id }
   });
 
   if (!user) {
@@ -17,8 +19,10 @@ export const save = async(id: number, token: string) => {
   return token;
 };
 
-export const getByToken = async(refreshToken: string) => {
+export const getByToken = async(
+  refreshToken: string
+): Promise<User | null> => {
   return User.findOne({
-    where: { refreshToken },
+    where: { refreshToken }
   });
 };

@@ -9,12 +9,12 @@ export const router = express.Router();
 router.post(
   '/registration',
   validateAuth(),
-  catchError(authControllers.register),
+  catchError(authControllers.register)
 );
 
 router.get(
   '/activation/:activationToken',
-  catchError(authControllers.activate),
+  catchError(authControllers.activate)
 );
 
 router.post('/login', validateAuth(), catchError(authControllers.login));
