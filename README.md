@@ -13,11 +13,11 @@ You can get product information through the following endpoints:
 
 If the page, size, sortBy, or productType parameters are not specified, they will be set to their default values.
 
-sortBy values: title, age, price
-page by default = 1
-size by default = 16
-sortBy by default = age
-productType by default = products
+sortBy values: title, age, price <br />
+page by default = 1 <br />
+size by default = 16 <br />
+sortBy by default = age <br />
+productType by default = products <br />
 
 Each endpoint returns a different set of information, as described below.
 
@@ -26,12 +26,12 @@ Each endpoint returns a different set of information, as described below.
 - GET /products
   Returns an object with the following parameters:
 
-products
-total
-page
-size
-sort
-category
+products <br />
+total <br />
+page <br />
+size <br />
+sort <br />
+category <br />
 
 - GET /products/:productId
   Returns information about a single product as an object.
@@ -49,16 +49,16 @@ category
   Returns all categories.
 
 You will also need to create .env file with current variables:
-PGHOST='host-link'
-PGDATABASE='database-name'
-PGUSER='user-name'
-PGPASSWORD='password'
-ENDPOINT_ID='endpointId'
-PORT='port'
+PGHOST='host-link' <br />
+PGDATABASE='database-name' <br />
+PGUSER='user-name' <br />
+PGPASSWORD='password' <br />
+ENDPOINT_ID='endpointId' <br />
+PORT='port' <br />
 
-SMTP_HOST='email-host'
-SMTP_PORT='port'
-SMTP_USER='email'
-SMTP_PASSWORD='password'
+SMTP_HOST='email-host' <br />
+SMTP_PORT='port' <br />
+SMTP_USER='email' <br />
+SMTP_PASSWORD='password' <br />
 
 CLIENT_URL='host-link'
