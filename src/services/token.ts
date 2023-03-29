@@ -2,7 +2,8 @@ import { ApiError } from '../exceptions/ApiError.js';
 import { User } from '../models/User.js';
 
 export const save = async(
-  id: number, token: string
+  id: number,
+  token: string
 ): Promise<string | ApiError> => {
   const user = await User.findOne({
     where: { id }

@@ -16,7 +16,10 @@ export const getOne = async(activationToken: string): Promise<User | null> => {
   }
 };
 
-export const normalize = ({ id, email }: UserType): {
+export const normalize = ({
+  id,
+  email
+}: UserType): {
   id: number
   email: string
 } => ({ id, email });
@@ -28,7 +31,8 @@ export const getByEmail = (email: string): Promise<User | null> => {
 };
 
 export const register = async(
-  email: string, password: string
+  email: string,
+  password: string
 ): Promise<400 | 201 | 500> => {
   try {
     const existingUser = await getByEmail(email);
@@ -55,7 +59,8 @@ export const register = async(
 };
 
 export const updateCart = async(
-  cart: CartItem[], email: string
+  cart: CartItem[],
+  email: string
 ): Promise<201 | 500> => {
   try {
     await User.update(

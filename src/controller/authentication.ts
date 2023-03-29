@@ -96,7 +96,8 @@ export const refresh = async(req: Req, res: Res): Promise<void> => {
 };
 
 export const sendAuthentication = async(
-  res: Res, user: User
+  res: Res,
+  user: User
 ): Promise<void> => {
   const userData = userServices.normalize(user);
   const accessToken = jwtServices.generateAccessToken(userData);

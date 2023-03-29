@@ -7,7 +7,9 @@ import * as jwtServices from '../services/jwt.js';
 import { ApiError } from '../exceptions/ApiError.js';
 
 export const authMiddleware = (
-  req: Req, res: Res, next: NextFunction
+  req: Req,
+  res: Res,
+  next: NextFunction
 ): void => {
   const { accessToken } = req.body;
 

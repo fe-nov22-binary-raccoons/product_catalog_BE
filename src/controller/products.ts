@@ -39,7 +39,8 @@ export const getProductById = async(req: Req, res: Res): Promise<void> => {
 };
 
 export const getProductByNumberId = async(
-  req: Req, res: Res
+  req: Req,
+  res: Res
 ): Promise<void> => {
   const { productId } = req.params;
 
@@ -55,7 +56,8 @@ export const getProductByNumberId = async(
 };
 
 export const getRecommendedProducts = async(
-  req: Req, res: Res
+  req: Req,
+  res: Res
 ): Promise<void> => {
   const { productId } = req.params;
 
@@ -83,7 +85,8 @@ export const getNewProducts = async(req: Req, res: Res): Promise<void> => {
 };
 
 export const getProductsWithDiscount = async(
-  req: Req, res: Res
+  req: Req,
+  res: Res
 ): Promise<void> => {
   const products = await productsServices.getProductsWithDiscount();
 

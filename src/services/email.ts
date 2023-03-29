@@ -19,7 +19,9 @@ const transporter = nodemailer.createTransport({
 });
 
 export const send = async({
-  email, subject, html
+  email,
+  subject,
+  html
 }: Email): Promise<SMTPTransport.SentMessageInfo | string> => {
   try {
     const mail = await transporter.sendMail({
@@ -37,7 +39,8 @@ export const send = async({
 };
 
 export const sendActivationLink = async(
-  email: string, token: string
+  email: string,
+  token: string
 ): Promise<string | SMTPTransport.SentMessageInfo> => {
   const clientUrl = process.env.CLIENT_URL;
   let link = '';

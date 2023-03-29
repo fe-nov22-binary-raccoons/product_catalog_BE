@@ -64,9 +64,13 @@ export const getProductFromProductsById = async(
 
 export const getRecommendedProducts = async(
   productId: string
-): Promise<500 | 404 | {
+): Promise<
+| 500
+| 404
+| {
   products: Product[]
-}> => {
+}
+> => {
   try {
     const products = await Product.findAll({
       order: [['name', 'ASC']]
@@ -90,9 +94,12 @@ export const getRecommendedProducts = async(
   }
 };
 
-export const getNewProducts = async(): Promise<500 | {
+export const getNewProducts = async(): Promise<
+| 500
+| {
   products: Product[]
-}> => {
+}
+> => {
   try {
     const products = await Product.findAll({
       order: [['year', 'DESC']],
@@ -106,9 +113,12 @@ export const getNewProducts = async(): Promise<500 | {
   }
 };
 
-export const getProductsWithDiscount = async(): Promise<500 | {
+export const getProductsWithDiscount = async(): Promise<
+| 500
+| {
   products: Product[]
-}> => {
+}
+> => {
   try {
     const products = await Product.findAll();
 
